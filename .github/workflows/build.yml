@@ -32,4 +32,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v2.5.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          allow_empty_commit: true
 
