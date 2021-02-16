@@ -1,9 +1,8 @@
-# Vue-pipeline
+## Vue-pipeline
 
-## About 
- This project contains a simple **Github Actions Pipeline** to build and deploy Vue app. 
+This repository contains a simple **Github Actions Pipeline** to build and deploy Vue app. When `main` branch receives a push, the pipeline is triggered, setting up and building the application. The resulting `dist` directory is pushed to `stage` branch.
 
-## Workflows
+### Workflow
 `./github/workflows/build.yml`
 ```
 name: CI
