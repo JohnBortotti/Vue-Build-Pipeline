@@ -16,14 +16,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         
-      - name: Setup and build 
-        run: |
-             npm install
-             npm run build
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Build
+        run: npm run build
              
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: dist
           path: dist
+          
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v2.5.0
+        env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          PUBLISH_BRANCH: stage
+          PUBLISH_DIR: ./build_production
 
