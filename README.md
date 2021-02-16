@@ -1,24 +1,40 @@
-# pipeline-vue
+# Vue-pipeline
 
-## Project setup
-```
-npm install
-```
+## About 
+ This project contains a simple **Github Actions Pipeline** to build and deploy Vue app. 
 
-### Compiles and hot-reloads for development
+## Workflows
+`./github/workflows/build.yml`
 ```
-npm run serve
-```
+name: CI
 
-### Compiles and minifies for production
-```
-npm run build
-```
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-### Lints and fixes files
-```
-npm run lint
-```
+  workflow_dispatch:
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: stage
+          allow_empty_commit: true
+```
